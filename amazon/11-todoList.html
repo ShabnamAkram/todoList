@@ -1,43 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  <p>Todo List</p>
-  <input type="text" placeholder="Todo name" class="input-type">
-  <button onclick="
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  </head>
+  <body>
+    <p>Todo List</p>
+    <input type="text" placeholder="Todo name" class="input-type">
+    <input type="date" class="date-js">
+    <button onclick="
       todoAdd();
   ">Add</button>
 
-<div class="js-list"></div>
+    <div class="js-list"></div>
 
-  <script>
-  const todolist = ['make dinner', 'wash dishes'];
+    <script>
+  const todolist = [{
+
+  name :'make dinner',
+  dueDate:'2022-12-22'
+},{  
+   name:'wash dishes',
+   dueDate:'2022-12-22'}];
+ 
     randerTodo();
   function randerTodo(){
   let todoListHTML = '';
+
   
   for(i = 0; i< todolist.length; i++){
-    const todo = todolist[i];
-    const html = `<p>${todo}</p>`;
+    const todoObject = todolist[i];
+  // const name = todoObject.name;
+  // const dueDate = todoObject.dueDate;
+   const {name, dueDate} = todoObject;
+    const html = 
+     `<p>
+      ${name} ${dueDate}
+      <button onclick = "
+      todolist.splice(${i}, 1);
+      randerTodo();
+      "> Delete </button>
+      </p>`;
     todoListHTML += html;
     
   }
-  //console.log(todoListHTML);
   document.querySelector('.js-list').innerHTML = todoListHTML;
   };
 
   function todoAdd() {
+    const date1 = document.querySelector('.date-js');
     const select = document.querySelector('.input-type');
     const name = select.value;
-    todolist.push(name);
+    const dueDate = date1.value;
+    todolist.push({
+      name, 
+      dueDate
+    });
     select.value = '';
-  // console.log(todolist);
+    date1.value = '';
+    
    randerTodo();
   };
   </script>
-</body>
+  </body>
 </html>
