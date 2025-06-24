@@ -4,16 +4,71 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+      .body{
+        column-gap: 2px;
+      }
+   .todo1{
+         font-size: 30px;
+         font-weight: bold;
+         font-family: Arial, Helvetica, sans-serif;
+   };
+
+   .input1{
+    padding: 3px;
+    margin: 23px;
+    color: aquamarine;
+   }
+
+   .date-js{
+    padding: 3px ;
+   }
+
+   .btn{
+      padding: 3px 37px;
+      color: aliceblue;
+      background: #126518;
+      border-radius: 2px;
+
+   }
+
+   .btn2{
+       padding: 3px 19px 4px;
+      color: aliceblue;
+      background: #6e2222;
+      border-radius: 2px;
+      
+   }
+
+   .js-list{
+        font-family:Arial, Helvetica, sans-serif;
+        
+       
+   }
+
+   .todo-grid, .input-grid{
+     display: grid;
+     grid-template-columns: 140px 147px 100px;
+     column-gap: 10px;
+     row-gap: 10px;
+   }
+
+    .input-grid{
+      margin-bottom: 10px;
+    } 
+    </style>
   </head>
   <body>
-    <p>Todo List</p>
-    <input type="text" placeholder="Todo name" class="input-type">
-    <input type="date" class="date-js">
+    <p class="todo1">Todo List</p>
+    <div class="input-grid">
+    <input type="text" placeholder="Todo name" class="input-type input1">
+    <input type="date" class="date-js" >
     <button onclick="
       todoAdd();
-  ">Add</button>
 
-    <div class="js-list"></div>
+  " class="btn">Add</button>
+   </div>
+    <div class="js-list todo-grid"></div>
 
     <script>
   const todolist = [{
@@ -35,13 +90,14 @@
   // const dueDate = todoObject.dueDate;
    const {name, dueDate} = todoObject;
     const html = 
-     `<p>
-      ${name} ${dueDate}
+     `<div>${name}</div>
+      <div>${dueDate}</div>
       <button onclick = "
       todolist.splice(${i}, 1);
       randerTodo();
-      "> Delete </button>
-      </p>`;
+
+      " class = 'btn2 btn3'> Delete </button>
+      `;
     todoListHTML += html;
     
   }
@@ -51,15 +107,20 @@
   function todoAdd() {
     const date1 = document.querySelector('.date-js');
     const select = document.querySelector('.input-type');
+    const btn3 = document.querySelector('.btn3');
     const name = select.value;
     const dueDate = date1.value;
+      if(   select.value === '' || date1.value === '' ){
+      btn3 = '';  
+    }
     todolist.push({
       name, 
       dueDate
     });
+   
     select.value = '';
     date1.value = '';
-    
+   
    randerTodo();
   };
   </script>
